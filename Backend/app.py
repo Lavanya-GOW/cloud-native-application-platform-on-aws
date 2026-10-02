@@ -37,6 +37,8 @@ redis_client = redis.Redis(
     decode_responses=True,
 )
 
+#CI-CD Pipeline Integration: The image tag is dynamically set based on the GitHub SHA of the commit that triggered the workflow. This ensures that each deployment uses a unique image version corresponding to the specific commit, allowing for better traceability and rollback capabilities.
+
 
 @app.route("/")
 def home():

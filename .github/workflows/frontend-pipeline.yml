@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'Frontend/**'
+
+permissions:
+  contents: write
 
 jobs:
   build_and_push:
@@ -55,3 +60,15 @@ jobs:
         run: |
             docker push lavanyasharma07/frontend-terraform-three-tier-aws:${{ github.sha }}
             docker push lavanyasharma07/frontend-terraform-three-tier-aws:latest
+
+      - name: Update Kubernetes manifest
+        working-directory: .
+        run: |
+          sed -i "s|image: lavanyasharma07/frontend-terraform-three-tier-aws:.*|image: lavanyasharma07/frontend-terraform-three-tier-aws:${{ github.sha }}|" kubernetes-files/frontend/frontend-deployment.yaml
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add kubernetes-files/frontend/frontend-deployment.yaml
+          git commit -m "Update frontend image to ${{ github.sha }}"
+          git push

@@ -2,15 +2,17 @@
 
 ### Production-Inspired Infrastructure on AWS using Terraform, Docker, Kubernetes (k3s), GitHub Actions, Prometheus & Grafana.
 
-![Terraform](https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions)
-![License](https://img.shields.io/badge/License-MIT-success?style=for-the-badge)
-![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
-![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
+[![Terraform](https://img.shields.io/badge/Terraform-844FBA?logo=terraform&logoColor=white)](https://www.terraform.io/)
+[![AWS](https://img.shields.io/badge/AWS-FF9900?logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?logo=githubactions&logoColor=white)](https://github.com/features/actions)
+[![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?logo=prometheus&logoColor=white)](https://prometheus.io/)
+[![Grafana](https://img.shields.io/badge/Grafana-F46800?logo=grafana&logoColor=white)](https://grafana.com/)
+[![Argo CD](https://img.shields.io/badge/Argo_CD-EF7B4D?logo=argo&logoColor=white)](https://argo-cd.readthedocs.io/)
+[![Loki](https://img.shields.io/badge/Loki-F2F4F7?logo=grafana&logoColor=black)](https://grafana.com/oss/loki/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Production-inspired AWS Infrastructure demonstrating Infrastructure as Code, CI/CD, Docker image automation, Kubernetes deployments and scalable cloud architecture.
 
@@ -18,13 +20,22 @@ Production-inspired AWS Infrastructure demonstrating Infrastructure as Code, CI/
 
 # 📖 Overview
 
-This project demonstrates how a production-inspired cloud infrastructure can be designed, deployed and managed entirely through Infrastructure as Code.
+This project is a production-inspired **three-tier cloud-native application platform** built to understand and implement modern infrastructure engineering practices end-to-end.
 
-Rather than creating isolated AWS resources, the objective was to understand how networking, compute, security, automation, databases and deployment pipelines work together as a complete platform.
+The project has evolved from a Terraform-based AWS architecture into a broader platform combining:
 
-The infrastructure provisions an end-to-end AWS environment capable of automatically deploying containerized applications using Terraform, GitHub Actions, Kubernetes (k3s) and EC2 User Data.
+- Infrastructure as Code with **Terraform**
+- Containerization with **Docker**
+- Kubernetes orchestration using **k3s**
+- Automated CI/CD with **GitHub Actions**
+- GitOps-based deployment with **Argo CD**
+- Metrics and monitoring with **Prometheus & Grafana**
+- Alerting with **Alertmanager**
+- Centralized logging with **Loki & Grafana Alloy**
+- AWS networking and infrastructure
+- Application health checks, service discovery and automated reconciliation
 
-The architecture has progressively evolved from basic AWS infrastructure into a multi-node Kubernetes platform with application monitoring using Prometheus and Grafana.
+The focus is not simply on deploying an application, but on understanding how infrastructure, application delivery, observability and automation work together as a real platform.
 
 ---
 
@@ -34,95 +45,82 @@ The primary objective of this project was to move beyond learning individual AWS
 
 This repository focuses on:
 
-- Infrastructure as Code
-- Production Networking
-- Automation
-- CI/CD
-- Kubernetes Deployments
-- Docker Image Management
-- High Availability
-- Cloud Debugging
-- Infrastructure Troubleshooting
-- Application Monitoring
-- Infrastructure Monitoring
-- Kubernetes Monitoring
-
-The goal wasn't simply making Terraform work.
+- Reproducible infrastructure
+- Automated application delivery
+- Kubernetes-based orchestration
+- Infrastructure and application observability
+- GitOps and declarative operations
+- Failure detection and recovery
+- Security and reliability
+- Automation with minimal manual intervention
+- Production-oriented engineering practices
 
 The goal was understanding **why production infrastructure is designed the way it is.**
-
----
-
-# ⭐ Highlights
-
-- Built entirely using Terraform
-- Production-inspired AWS Networking
-- Infrastructure as Code
-- Self-managed Multi-Node Kubernetes (k3s) Cluster
-- Docker Image Pipeline
-- GitHub Actions CI/CD
-- Dedicated Kubernetes Control Plane
-- Auto Scaling Worker Nodes
-- External Application Load Balancer
-- Kubernetes Ingress
-- Amazon RDS PostgreSQL
-- Redis StatefulSet
-- CloudWatch Monitoring
-- Prometheus Monitoring
-- Grafana Monitoring Dashboards
-- Prometheus ServiceMonitors
-- Application Metrics Collection
-- Kubernetes Metrics Monitoring
-- Infrastructure Metrics Monitoring
-- Remote Terraform State
-- Automated EC2 Bootstrapping using User Data
-- SSM-based Cluster Join Automation
-- Separate Frontend & Backend Deployments
-- Namespace Isolation
-- Resource Requests & Limits
-- Liveness & Readiness Probes
 
 ---
 
 # 🏗 Architecture
 
 ```text
-                 Internet
-                     │
-                     ▼
-      External Application Load Balancer
-                     │
-                     ▼
-            Kubernetes Ingress
-                     │
-                     ▼
-     Multi-Node Kubernetes (k3s) Cluster
-                     │
-        ┌────────────┴────────────┐
-        ▼                         ▼
- Frontend Deployment      Backend Deployment
-        │                         │
-        └───────────┬─────────────┘
-                    ▼
-            Redis StatefulSet
-                    │
-                    ▼
-         Amazon RDS PostgreSQL
+                         ┌──────────────────────┐
+                         │      Developer       │
+                         │   Code / Git Push    │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │    GitHub Actions    │
+                         │ Build • Test • Docker │
+                         │   Push • Update Git  │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │       GitHub         │
+                         │ Kubernetes Desired   │
+                         │       State          │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │       Argo CD        │
+                         │ GitOps Reconciliation│
+                         │ Self-Heal • Pruning  │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+Internet ──► AWS Load Balancer ──► Kubernetes Ingress
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │      k3s Cluster     │
+                         │                      │
+                         │ ┌──────────────────┐ │
+                         │ │    Frontend      │ │
+                         │ └────────┬─────────┘ │
+                         │          │            │
+                         │ ┌────────▼─────────┐ │
+                         │ │     Backend      │ │
+                         │ └────────┬─────────┘ │
+                         │          │            │
+                         │ ┌────────▼─────────┐ │
+                         │ │      Redis       │ │
+                         │ └──────────────────┘ │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                              AWS RDS Database
 
 
-              Monitoring Layer
-                     │
-          ┌──────────┴──────────┐
-          ▼                     ▼
-      Prometheus              Grafana
-          │                     │
-          │              Monitoring Dashboards
-          │
-     ServiceMonitors
-          │
-   ┌──────┴─────────┐
-   ▼                ▼
-Frontend Metrics  Backend Metrics
+        ┌─────────────────────────────────────────────┐
+        │             Observability Layer             │
+        │                                             │
+        │ Prometheus → Metrics                        │
+        │ Grafana    → Dashboards                     │
+        │ Alertmanager → Alerts                       │
+        │ Alloy      → Log Collection                 │
+        │ Loki       → Centralized Log Storage        │
+        └─────────────────────────────────────────────┘
 ```
 
 # ☁ Infrastructure Components
@@ -150,272 +148,580 @@ Frontend Metrics  Backend Metrics
 | Prometheus          | Metrics Collection & Monitoring |
 | Grafana             | Metrics Visualization & Dashboards |
 | ServiceMonitor      | Kubernetes Service Metrics Discovery |
-
+| Argo CD             | GitOps deployment and reconciliation |
+| Alertmanager        | Alert routing           |
+| Loki                | Centralized log storage |
+| Grafana Alloy       | Log collection and forwarding |
 ---
 
 # 🚀 Features
 
-- Infrastructure as Code
-- Automated Infrastructure Provisioning
-- Self-managed Kubernetes Cluster
-- Auto Scaling Workers
-- Docker Image Automation
-- GitHub Actions CI/CD
-- Kubernetes Ingress
-- Frontend & Backend Deployments
+### Infrastructure
+
+- AWS infrastructure provisioned using Terraform
+- Reproducible networking and compute configuration
+- Public/private architecture
+- Security groups and controlled network access
+- RDS integration
+- Infrastructure lifecycle through Terraform
+
+### Containers
+
+- Separate frontend and backend Docker images
+- Reproducible application environments
+- Docker image smoke testing in CI
+- Versioned container images using Git commit SHA
+
+### Kubernetes
+
+- k3s-based Kubernetes cluster
+- Frontend and backend Deployments
 - Redis StatefulSet
-- PostgreSQL
+- Kubernetes Services
 - ConfigMaps
-- Namespace Isolation
-- Health Checks
-- CloudWatch Monitoring
-- Prometheus Monitoring
-- Grafana Dashboards
-- Kubernetes ServiceMonitors
-- Application Metrics
-- Infrastructure Metrics
-- Kubernetes Metrics
-- Prometheus Target Monitoring
+- Namespaces
+- Ingress
+- Health probes
+- Service discovery
+- Replica management
+
+### CI/CD
+
+- GitHub Actions triggered by application changes
+- Dependency installation and validation
+- Application smoke tests
+- Docker image builds
+- Docker Hub publishing
+- Automatic Kubernetes manifest updates
+- Git-based deployment workflow
+
+### GitOps
+
+- Argo CD continuously watches Git
+- Git acts as the declarative source of truth
+- Automated synchronization
+- Drift detection
+- Self-healing
+- Pruning of resources removed from desired state
+
+### Observability
+
+- Prometheus metrics
+- Grafana dashboards
+- Alertmanager alerts
+- Loki centralized logs
+- Alloy log collection
+- Kubernetes workload monitoring
 
 ---
 
 # 📊 Monitoring & Observability
 
-The project has been extended with a dedicated monitoring stack using Prometheus and Grafana.
-
 ## Prometheus
 
-Prometheus is used to collect and monitor metrics from the Kubernetes-based application and infrastructure.
+Prometheus collects Kubernetes and application metrics.
 
-The monitoring setup includes:
+The monitoring stack includes:
 
+- Prometheus
+- kube-state-metrics
+- node-exporter
+- ServiceMonitors
+- Alertmanager
+- Grafana
+
+Example metrics include:
+
+- CPU usage
+- Memory usage
+- Pod state
+- Deployment state
+- Node health
+- Container resource usage
 - Application metrics
-- Frontend metrics
-- Backend metrics
-- Kubernetes metrics
-- Node metrics
-- Pod metrics
-- Prometheus target health
-- Scrape duration
-- Target uptime
-- CPU utilization
-- Memory utilization
-- Disk utilization
-- Network traffic
-- Pod restart counts
-- Pending pod detection
-- HTTP 5xx errors
-- Error percentage
-- Request rate
-- Request latency
-- Active requests
 
-## ServiceMonitors
+## 📈 Grafana
 
-Kubernetes `ServiceMonitor` resources are used to configure Prometheus to discover and scrape application metrics.
+Grafana provides dashboards for infrastructure and application metrics.
 
-The frontend and backend services expose metrics endpoints which are discovered by Prometheus through their corresponding ServiceMonitor resources.
-
-This allows monitoring configuration to remain Kubernetes-native instead of manually configuring individual Prometheus scrape targets.
-
-## Grafana
-
-Grafana is used to visualize the collected Prometheus metrics through a custom monitoring dashboard.
-
-The dashboard is organized into multiple sections:
-
-### General
-
-- Request Rate
-- Request Latency
-- Active Requests
-- Total 5xx Errors
-- Error Percentage
-- Unhealthy Targets
-- Healthy Target Ratio
-
-### Infrastructure Status
-
-- Frontend CPU Utilization
-- Backend CPU Utilization
-- Node CPU
-- Frontend Memory Usage
-- Backend Memory Usage
-- Node Memory
-- Node Disk Usage
-
-### Kubernetes Status
-
-- Pending Pods
-- Frontend Pod Restarts
-- Backend Pod Restarts
-- Pod Status
-- Receiving Network Traffic
-- Transmitting Network Traffic
-
-### Prometheus Status
-
-- Scrape Duration
-- Target Uptime
-
-The monitoring setup was also tested by intentionally generating application errors and verifying that the corresponding metrics and dashboard panels reflected the failures correctly.
+```text
+Kubernetes / Application
+          │
+          ▼
+      Prometheus
+          │
+          ▼
+        Grafana
+```
 
 ---
 
-# 🛠 Technology Stack
+# 🚨 Alertmanager
 
-| Category      | Technologies      |
-| ------------- | ----------------- |
-| Cloud         | AWS               |
-| IaC           | Terraform         |
-| Programming   | Python            |
-| Containers    | Docker            |
-| Orchestration | Kubernetes (k3s)  |
-| CI/CD         | GitHub Actions    |
-| Database      | PostgreSQL, Redis |
-| Networking    | VPC, ALB, Ingress |
-| Monitoring    | Prometheus, Grafana, ServiceMonitor, CloudWatch |
+Alertmanager handles alerts generated by Prometheus.
+
+It provides:
+
+- Alert routing
+- Grouping
+- Deduplication
+- Notification handling
+
+This moves the monitoring system beyond passive dashboards toward active failure detection.
+
+---
+
+# 📝 Centralized Logging
+
+The project uses **Grafana Alloy + Loki** for centralized logging.
+
+```text
+Application Pods
+      │
+      ▼
+   Grafana Alloy
+      │
+      ▼
+      Loki
+      │
+      ▼
+    Grafana
+```
+
+### Alloy
+
+Alloy collects and forwards logs from the Kubernetes environment.
+
+### Loki
+
+Loki stores logs centrally and makes them queryable through Grafana.
+
+This enables troubleshooting without manually inspecting every container or node.
+
+---
+
+# 🔐 Security Model
+
+Security is treated as an engineering requirement rather than a separate add-on.
+
+Current practices include:
+
+- AWS Security Groups
+- Public/private network separation
+- IAM-based AWS access
+- SSM-based instance management
+- Kubernetes namespaces
+- Controlled service exposure
+- GitHub repository permissions
+- Limited GitHub Actions token permissions
+- Traceable Docker image versions
+
+Future hardening areas include:
+
+- Kubernetes NetworkPolicies
+- Container image vulnerability scanning
+- Secrets management
+- Least-privilege IAM
+- Pod security hardening
+- Runtime security
+- Software supply-chain security
+
+---
+
+# ⚙️ Reliability, Availability & Scalability
+
+The next phase focuses on production hardening.
+
+### Reliability
+
+- Health probes
+- Automated reconciliation
+- Self-healing
+- Failure detection
+- Controlled rollouts
+- Rollback strategies
+
+### Availability
+
+- Multiple application replicas
+- Kubernetes scheduling
+- Load balancing
+- Failure recovery
+- Database availability considerations
+
+### Scalability
+
+Planned improvements include:
+
+- Horizontal Pod Autoscaler
+- Metrics Server
+- Cluster Autoscaler
+- Resource requests and limits
+- Load testing
+- Performance benchmarking
+
+---
+
+# 🧪 Validation & Engineering Experiments
+
+The project is validated through practical experiments rather than configuration alone.
+
+### GitOps Drift Detection
+
+A Kubernetes Deployment was manually changed:
+
+```bash
+kubectl scale deployment backend -n three-tier-app --replicas=2
+```
+
+Argo CD detected the difference between live state and Git state.
+
+### Self-Healing
+
+Argo CD automatically restored the Deployment to the desired replica count.
+
+### CI/CD
+
+A backend code change successfully triggered:
+
+```text
+Code change
+   ↓
+GitHub Actions
+   ↓
+Application validation
+   ↓
+Docker build
+   ↓
+Docker smoke test
+   ↓
+Docker Hub push
+   ↓
+Manifest update
+   ↓
+Git commit
+   ↓
+Argo CD sync
+   ↓
+Kubernetes rollout
+```
+
+This validates the complete application delivery chain.
+
+---
+
+# 🧠 Engineering Principles
+
+### 1. Declarative Infrastructure
+
+Infrastructure should describe the desired state rather than require manual step-by-step configuration.
+
+### 2. Git as Source of Truth
+
+Infrastructure and deployment configuration should be version-controlled.
+
+### 3. Automation First
+
+Repeated manual operations should become automated workflows.
+
+### 4. Immutable Artifacts
+
+Container images should be traceable to specific source revisions.
+
+### 5. Reconciliation
+
+Systems should continuously move actual state toward desired state.
+
+### 6. Observability
+
+A system is not production-ready if its health cannot be measured and its failures cannot be investigated.
+
+### 7. Minimal Manual Intervention
+
+The goal is to allow developers and operators to interact with the platform through simple, repeatable workflows.
+
+---
+
+# 🛠️ Technology Stack
+
+| Category | Technology |
+|---|---|
+| Cloud | AWS |
+| IaC | Terraform |
+| Containers | Docker |
+| Orchestration | Kubernetes / k3s |
+| CI/CD | GitHub Actions |
+| GitOps | Argo CD |
+| Backend | Python / Flask |
+| Frontend | Web Application |
+| Cache | Redis |
+| Database | Amazon RDS |
+| Monitoring | Prometheus |
+| Visualization | Grafana |
+| Alerting | Alertmanager |
+| Logging | Loki |
+| Log Collection | Grafana Alloy |
+| Instance Management | AWS SSM |
+| Source Control | Git / GitHub |
 
 ---
 
 # 📂 Repository Structure
 
 ```text
-aws-three-tier-architecture/
-
-├── .github/
-│   └── workflows/
-
-├── docs/
-│   ├── architecture.md
-│   ├── deployment_notes.md
-│   ├── design-decisions.md
-│   ├── lessons_learned.md
-│   └── roadmap.md
-
-├── Backend/
-│   ├── app.py
-│   ├── requirement.txt
-│   └── Dockerfile
-
-├── Frontend/
-│   ├── app.py
-│   ├── requirement.txt
-│   └── Dockerfile
-
-├── kubernetes-files/
-│   ├── base/
-│   ├── backend/
-│   ├── frontend/
-│   ├── redis/
-│   ├── monitoring/
-│   └── ingress.yaml
-
-├── images/
-│   ├── architecture.png
-│   ├── Infrastructure_status.png
-│   ├── Kubernetes_status.png
-│   ├── Application_status.png
-│   └── Prometheus_status.png
-
-├── monitoring/
-│   ├── backend-servicemonitor.yml
-│   ├── frontend-servicemonitor.yml
-│   ├── deployment.yml
-│   ├── namespace.yml
-│   ├── service.yml
-│   ├── prometheus.yml
-│   └── grafana_dashboard.json
-
-
-├── terraform_infra/
-│   └── scripts/
-
-├── docker-compose.yml
-
+├── Backend
+│   ├── Dockerfile
+│   ├── app.py
+│   └── requirements.txt
+├── Frontend
+│   ├── Dockerfile
+│   ├── app.py
+│   └── requirements.txt
+├── LICENSE
+├── Loki
+│   └── values.yaml
 ├── README.md
-
-└── LICENSE
+├── README2.md
+├── alertmanager
+│   ├── alertmanager-config.yaml
+│   ├── gmail-alertmanager-config.yaml
+│   └── prometheus-rule.yaml
+├── alloy
+│   └── values.yaml
+├── argocd
+│   └── manifest.yaml
+├── docker-compose.yml
+├── docs
+│   ├── architecture.md
+│   ├── deployment_notes.md
+│   ├── design_descision.md
+│   ├── lessons_learned.md
+│   └── roadmap.md
+├── images
+│   ├── Alertmanager-alerts.png
+│   ├── Application-alerts.png
+│   ├── Application_status.png
+│   ├── ArgoCD_Application_UI.png
+│   ├── ArgoCD_Details_Tree.png
+│   ├── ArgoCD_History&Rollback.png
+│   ├── Infrastructure_status.png
+│   ├── Kube-alerts.png
+│   ├── Kubernetes_status.png
+│   ├── Loki_live_logs.png
+│   ├── Loki_logs_1.png
+│   ├── Loki_logs_2.png
+│   ├── Prometheus_status.png
+│   ├── Videos - Shortcut.lnk
+│   └── architecture.png
+├── kubernetes-files
+│   ├── backend
+│   │   ├── backend-deployment.yaml
+│   │   └── backend-service.yaml
+│   ├── base
+│   │   ├── configmaps.yaml
+│   │   └── namespace.yaml
+│   ├── frontend
+│   │   ├── frontend-deployment.yaml
+│   │   └── frontend-service.yaml
+│   ├── ingress.yaml
+│   └── redis
+│       ├── redis_service.yaml
+│       └── statefulset.yaml
+├── monitoring
+│   ├── backend-servicemonitor.yaml
+│   ├── deployment.yaml
+│   ├── frontend-servicemonitor.yaml
+│   ├── grafana_dashboard.json.json
+│   ├── loki-datasource.yaml
+│   ├── namespace.yaml
+│   ├── prometheus.yaml
+│   └── service.yaml
+└── terraform_infra
+    ├── alb.tf
+    ├── backend.tf
+    ├── bastion.tf
+    ├── iam.tf
+    ├── instance.tf
+    ├── output.tf
+    ├── rds.tf
+    ├── scripts
+    │   ├── deploy.sh
+    │   ├── server.sh
+    │   └── worker.sh
+    ├── secrets.tf
+    ├── security_groups.tf
+    ├── terraform.tf
+    ├── terraform.tfstate
+    ├── terraform.tfstate.backup
+    ├── terraform.tfvars
+    ├── variables.tf
+    ├── vpc.tf
+    └── worker_asg.tf
 ```
 
+> Some infrastructure and monitoring files may evolve as the platform grows; the structure above represents the main current project organization.
+
 ---
 
-# 🚧 Roadmap
+# 🗺️ Project Roadmap
 
-## ✅ Version 1
+## Version 1 — Infrastructure Foundation
 
 - Terraform
-- Docker
-- GitHub Actions
-- ALB
+- AWS networking
+- Security Groups
+- Compute
+- Load Balancer
 - RDS
+- Docker
+- Initial GitHub Actions automation
 
-## ✅ Version 2
+## Version 2 — Kubernetes
 
-- Kubernetes
+- Kubernetes/k3s cluster
+- Deployments
+- Services
 - StatefulSets
 - ConfigMaps
-- Namespace
-- Health Probes
+- Namespaces
+- Health probes
+- Service discovery
 
-## ✅ Version 2.1
+## Version 2.1 — Ingress
 
-- Ingress
+- Kubernetes Ingress
+- Application routing
+- External traffic management
 
-## ✅ Version 3
+## Version 3 — Self-Managed Kubernetes Platform
 
-- Single Multi-node Cluster
-- Control Plane
-- Worker ASG
-- SSM Cluster Join
-- Separate Frontend & Backend
-- Internal Service Discovery
+- Self-managed k3s cluster
+- Control-plane architecture
+- Worker nodes
+- Application deployments
+- SSM-based management
+- Frontend/backend separation
+- Kubernetes service discovery
 
-## ✅ Version 4
+## Version 4.0 — Metrics & Monitoring
 
 - Prometheus
-- Application Metrics
-- Kubernetes Metrics
-- Infrastructure Metrics
-- Prometheus Target Monitoring
-- CPU & Memory Monitoring
-- Network Monitoring
-- Pod Monitoring
-- Error Monitoring
-- Request Rate Monitoring
-- Latency Monitoring
+- kube-state-metrics
+- node-exporter
 
-## ✅ Version 4.1
+## Version 4.1 — Visulaization
 
-- Grafana
-- Custom Grafana Monitoring Dashboard
-- Prometheus ServiceMonitors
-- Frontend Metrics Monitoring
-- Backend Metrics Monitoring
-- Kubernetes Status Dashboard
-- Infrastructure Status Dashboard
-- Prometheus Status Dashboard
-- 5xx Error Monitoring
-- Error Percentage Monitoring
-- Pod Restart Monitoring
-- Pending Pod Monitoring
-- Target Health Monitoring
+- Grafana Dashboard
+- ServiceMonitors
 
-## 🚀 Future
+## Version 4.2 — Alerting
 
-- Centralized Logging with Loki
-- EKS
-- ArgoCD
-- HPA
-- Metrics Server
-- Cluster Autoscaler
-- Distributed Tracing
-- OpenTelemetry
+- Alertmanager
+- Prometheus alert rules
+- Alert routing
+- Failure notifications
 
-## 🤝 Acknowledgements
+## Version 4.3 — Centralized Logging
 
-The initial AWS architecture was inspired by publicly available cloud architecture tutorials. The Kubernetes architecture, automation, debugging, design decisions and production evolution represent my own implementation.
+- Grafana Alloy
+- Loki
+- Centralized Kubernetes logs
+- Grafana log visualization
+
+## Version 5 — GitOps
+
+- Argo CD
+- Git as deployment source of truth
+- Automated synchronization
+- Drift detection
+- Self-healing
+- Resource pruning
 
 ---
 
-## Thanks for visiting my project! ⭐
+# 🔮 Future Production Hardening
+
+The next major phase is focused on making the platform more production-grade rather than simply adding more tools.
+
+Planned areas include:
+
+- Kubernetes NetworkPolicies
+- Container image scanning
+- Secrets management
+- Least-privilege IAM
+- Resource requests and limits
+- Horizontal Pod Autoscaling
+- Metrics Server
+- Cluster Autoscaling
+- Load testing
+- Performance optimization
+- Distributed tracing
+- OpenTelemetry
+- Advanced deployment strategies
+- Backup and disaster recovery
+- High-availability considerations
+- Security hardening
+- Reliability engineering
+- Developer/platform experience improvements
+
+---
+
+# 📌 Current Project Status
+
+The project currently demonstrates an end-to-end cloud-native platform covering:
+
+```text
+Infrastructure as Code
+        ↓
+AWS Infrastructure
+        ↓
+Docker Containers
+        ↓
+Kubernetes / k3s
+        ↓
+CI/CD
+        ↓
+GitOps / Argo CD
+        ↓
+Automated Reconciliation
+        ↓
+Monitoring
+        ↓
+Alerting
+        ↓
+Centralized Logging
+```
+
+The infrastructure foundation and automated delivery system are now established.
+
+The project is moving into the next stage:
+
+> **Production Hardening — improving security, reliability, availability, scalability, performance and developer experience.**
+
+---
+
+# 🙏 Acknowledgements
+
+This project was built through continuous experimentation with:
+
+- AWS
+- Terraform
+- Docker
+- Kubernetes
+- GitHub Actions
+- Argo CD
+- Prometheus
+- Grafana
+- Alertmanager
+- Loki
+- Grafana Alloy
+
+The project is intentionally built as a learning platform for understanding how modern cloud infrastructure and platform engineering systems work together.
+
+---
+
+# ⭐ Thanks for Visiting!
+
+If you found this project useful or interesting, feel free to explore the repository and follow its evolution.
+
+**Built to learn. Built to automate. Built to understand infrastructure.**

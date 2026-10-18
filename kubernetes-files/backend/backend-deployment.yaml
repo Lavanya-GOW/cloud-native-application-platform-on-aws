@@ -31,7 +31,7 @@ spec:
                 key: APP_REDIS_PORT
 
           - name: WORKERS
-            value: "2"
+            value: "3"
 
         ports:
         - containerPort: 5000

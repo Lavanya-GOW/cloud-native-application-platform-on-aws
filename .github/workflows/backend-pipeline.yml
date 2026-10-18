@@ -52,6 +52,7 @@ jobs:
             docker run -d --name test-app -p 5000:5000 \
             lavanyasharma07/backend-terraform-three-tier-aws:${{ github.sha }}
             sleep 20
+            curl -v http://localhost:5000/livez
             curl -v http://localhost:5000/health
             docker logs test-app
             docker rm -f test-app
@@ -65,7 +66,7 @@ jobs:
         working-directory: .
         run: |
           sed -i "s|image: lavanyasharma07/backend-terraform-three-tier-aws:.*|image: lavanyasharma07/backend-terraform-three-tier-aws:${{ github.sha }}|" kubernetes-files/backend/backend-deployment.yaml
-          
+          git pull origin main --rebase
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 

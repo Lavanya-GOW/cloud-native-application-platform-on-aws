@@ -79,6 +79,9 @@ def home():
 
         ACTIVE_REQUESTS.dec()
 
+@app.route("/livez")
+def livez():
+    return "Alive", 200
 
 @app.route("/health")
 def health():
